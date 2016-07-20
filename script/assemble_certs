@@ -31,9 +31,8 @@ ca_name = "ca"
 # the certificate and key are `hub-cert.pem` and `hub-key.pem`, respectively,
 # then the base name is 'hub'.
 name_map = {
-    "jupyterhub_host": "compmodels",
-    "jupyterhub_node1": "compmodels-node-01",
-    "jupyterhub_node2": "compmodels-node-02"
+    "node1": "node1",                                                                              
+    "node2": "node2"                                                                               
 }
 
 ################################################################################
