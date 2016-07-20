@@ -1,6 +1,6 @@
 ---
 - name: clone the dockerfile git repository
-  git: repo=https://github.com/compmodels/systemuser.git dest=/srv/systemuser
+  git: repo=https://github.com/triggers/systemuser.git dest=/srv/systemuser
 
 - name: configuration directories
   file: state=directory dest=/srv/nginx mode=0755

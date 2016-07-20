@@ -1,6 +1,6 @@
 ---
 - name: clone the dockerfile git repository
-  git: repo=https://github.com/compmodels/systemuser.git dest=/srv/systemuser
+  git: repo=https://github.com/triggers/systemuser.git dest=/srv/systemuser
 
 - name: build the docker image
-  shell: docker build --no-cache -t compmodels/systemuser /srv/systemuser
+  shell: docker build --no-cache -t triggers/systemuser /srv/systemuser
