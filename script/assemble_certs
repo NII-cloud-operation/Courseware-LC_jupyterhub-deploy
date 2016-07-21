@@ -31,6 +31,7 @@ ca_name = "ca"
 # the certificate and key are `hub-cert.pem` and `hub-key.pem`, respectively,
 # then the base name is 'hub'.
 name_map = {
+    "hub": "hub",                                                                              
     "node1": "node1",                                                                              
     "node2": "node2"                                                                               
 }
