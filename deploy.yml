@@ -8,7 +8,6 @@
   - 'secrets.vault.yml'
   roles:
   - common
-  - rackspace
 
 - hosts:
   - proxy
