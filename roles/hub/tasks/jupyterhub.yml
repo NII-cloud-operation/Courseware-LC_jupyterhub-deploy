@@ -15,7 +15,7 @@
   when: jupyterhub_admins|length == 0
 
 - name: clone the dockerfile git repository
-  git: repo=https://github.com/compmodels/jupyterhub.git dest=/srv/jupyterhub
+  git: repo=https://github.com/triggers/jupyterhub.git dest=/srv/jupyterhub
 
 - name: create the jupyterhub_users directory
   file: path=/srv/jupyterhub_users state=directory
