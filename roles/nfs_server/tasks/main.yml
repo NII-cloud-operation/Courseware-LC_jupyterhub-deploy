@@ -54,4 +54,4 @@
   service: name=nfs-kernel-server state=started
 
 - name: restart idmapd
-  service: name=nfs-idmapd state=restarted
+  service: name=idmapd state=restarted
