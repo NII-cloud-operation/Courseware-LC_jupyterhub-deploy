@@ -9,14 +9,20 @@
 - name: install nfs client
   apt: update_cache=yes cache_valid_time=600 name=nfs-common state=present
 
-- name: unmount home
+- name: unmount home nsf dir
   shell: umount /home || true
 
-- name: unmount exchange
+- name: unmount exchange nsf dir
   shell: umount {{ exchange }} || true
 
-- name: mount home
+- name: unmount jupyter nsf dir
+  shell: umount /jupyter || true
+
+- name: mount home nfs dir
   mount: name=/home src={{ hostvars[nfsserver]['servicenet_ip'] }}:/home fstype=nfs opts={{ nfsoptions }} state=mounted
 
-- name: mount exchange
+- name: mount exchange nfs dir
   mount: name={{ exchange }} src={{ hostvars[nfsserver]['servicenet_ip'] }}:/exchange fstype=nfs opts={{ nfsoptions }} state=mounted
+
+- name: mount jupyter nfs dir
+  mount: name=/jupyter src={{ hostvars[nfsserver]['servicenet_ip'] }}:/jupyter fstype=nfs opts={{ nfsoptions }} state=mounted
