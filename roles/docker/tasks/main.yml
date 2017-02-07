@@ -28,6 +28,15 @@
   local_action: wait_for host={{ ansible_ssh_host }} state=started
   when: grubbed | changed
 
+# The next task needs to be run after reboot so that uname picks the
+# version of the kernel that is going to be used.  The purpose is to
+# get aufs installed, so that docker will use aufs.  Otherwise, it
+# will default to devmapper, which has race conditions.
+# https://github.com/docker/docker/issues/4036
+
+- name: install correct linux-image-extra
+  shell: apt-get -y install linux-image-extra-$(uname -r)
+
 - name: see if HTTPS transport is already present
   stat: path=/usr/lib/apt/methods/https get_md5=false
   register: https_transport_file
