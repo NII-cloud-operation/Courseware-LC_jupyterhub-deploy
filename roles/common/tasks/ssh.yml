@@ -17,5 +17,6 @@
 - name: include additional public keys
   template: dest=/tmp/pubkeys/other-pubkeys src=other-pubkeys.j2
 
-- name: assemble the authorized keys file
-  assemble: dest=/root/.ssh/authorized_keys mode=0600 src=/tmp/pubkeys
+#  We assume keys are already set up in the VMs by other scripts
+#- name: assemble the authorized keys file
+#  assemble: dest=/root/.ssh/authorized_keys mode=0600 src=/tmp/pubkeys
