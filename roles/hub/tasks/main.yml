@@ -33,6 +33,3 @@
 - name: get a jupyterhub api token
   command: docker exec root_jupyterhub_1 jupyterhub token -f /srv/jupyterhub_config/jupyterhub_config.py {{ jupyterhub_admin_user }}
   register: jpy_api_token
-
-- name: start remaining services
-  shell: JPY_API_TOKEN={{ jpy_api_token.stdout }} NBGRADER_USER_ID={{ nbgrader_user_id.stdout }} docker-compose up -d --no-recreate

@@ -45,16 +45,3 @@ jupyterhub:
     links:
       - swarm
       - jpydb:postgres
-
-gradebook:
-    image: postgres
-    restart: always
-    environment:
-      POSTGRES_DB: gradebook
-      POSTGRES_PASSWORD: "{{ gradebook_postgres_password }}"
-      PGDATA: /var/lib/postgresql/data/gradebook
-    volumes:
-      - /srv/postgres/gradebook:/var/lib/postgresql/data/gradebook
-    ports:
-      - "{{ ansible_ssh_host }}:5432:5432"
-
