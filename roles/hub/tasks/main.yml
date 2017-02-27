@@ -4,7 +4,6 @@
 
 - include: jupyterhub.yml
 - include: swarm.yml
-- include: stats.yml
 
 - name: install docker-compose.yml
   template: src=docker-compose.yml dest=/root/docker-compose.yml

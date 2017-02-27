@@ -58,13 +58,3 @@ gradebook:
     ports:
       - "{{ ansible_ssh_host }}:5432:5432"
 
-stats:
-    build: /srv/stats
-    restart: always
-    command: --file=/srv/stats_db/activity.sqlite --hub=http://jupyterhub:8081
-    environment:
-      JPY_API_TOKEN:
-    volumes:
-      - /srv/stats_db:/srv/stats_db
-    links:
-      - jupyterhub
