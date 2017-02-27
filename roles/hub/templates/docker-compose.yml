@@ -46,15 +46,6 @@ jupyterhub:
       - swarm
       - jpydb:postgres
 
-cull:
-    build: /srv/cull
-    restart: always
-    command: --timeout=86400 --cull_every=3600 --url=http://jupyterhub:8081/hub
-    environment:
-      JPY_API_TOKEN:
-    links:
-      - jupyterhub
-
 gradebook:
     image: postgres
     restart: always
