@@ -1,5 +1,5 @@
 staticfiles:
-    build: /srv/systemuser
+    image: triggers/systemuser
     command: echo "#data-container-hack"
     volumes:
     - "{{ notebook_static_files }}"
