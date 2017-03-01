@@ -16,12 +16,6 @@
   roles:
   - nfs_client
 
-- hosts: jupyterhub_nodes
-  vars_files:
-  - 'secrets.vault.yml'
-  roles:
-  - node
-
 - hosts: jupyterhub_host
   vars_files:
   - 'secrets.vault.yml'
