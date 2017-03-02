@@ -3,6 +3,7 @@
 ROOT=$(dirname $0)/..
 
 suffix="$1" # either "-part1" or "-part2"
+shift
 
 if [ ! -e ${ROOT}//inventory ]; then
   echo "Please create an inventory file with your hosts."
