@@ -1,0 +1,19 @@
+---
+- hosts:
+  - proxy
+  - jupyterhub_nfs
+  - jupyterhub_host
+  - jupyterhub_nodes
+  vars_files:
+  - 'secrets.vault.yml'
+  roles:
+  - common
+
+- hosts:
+  - proxy
+  - jupyterhub_host
+  - jupyterhub_nodes
+  vars_files:
+  - 'secrets.vault.yml'
+  roles:
+  - docker

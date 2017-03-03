@@ -1,0 +1,25 @@
+- hosts: proxy
+  vars_files:
+  - 'secrets.vault.yml'
+  roles:
+  - proxy
+
+- hosts: jupyterhub_nfs
+  vars_files:
+  - 'secrets.vault.yml'
+  roles:
+  - nfs_server
+
+- hosts: nfs_clients
+  vars_files:
+  - 'secrets.vault.yml'
+  roles:
+  - nfs_client
+
+- hosts: jupyterhub_host
+  vars_files:
+  - 'secrets.vault.yml'
+  - 'users.vault.yml'
+  roles:
+  - restuser
+  - hub

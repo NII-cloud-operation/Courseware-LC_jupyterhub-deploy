@@ -2,6 +2,9 @@
 
 ROOT=$(dirname $0)/..
 
+suffix="$1" # either "-part1" or "-part2"
+shift
+
 if [ ! -e ${ROOT}//inventory ]; then
   echo "Please create an inventory file with your hosts."
   echo " cp inventory.example inventory"
@@ -9,4 +12,4 @@ if [ ! -e ${ROOT}//inventory ]; then
 fi
 
 VAULT_ARG="--vault-password-file ${ROOT}/vault-password"
-exec ansible-playbook ${ROOT}/deploy.yml -i ${ROOT}/inventory ${VAULT_ARG} $@
+exec ansible-playbook ${ROOT}/deploy${suffix}.yml -i ${ROOT}/inventory ${VAULT_ARG} $@
