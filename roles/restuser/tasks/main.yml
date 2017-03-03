@@ -4,8 +4,10 @@
 - name: tornado
   pip: name=tornado state=latest
 
-- name: install restuser
-  git: repo=git://github.com/minrk/restuser.git dest=/srv/restuser accept_hostkey=yes
+# Commenting this out because the restuser repository will now be
+# preloaded into the hub VM from a local cache.
+#- name: install restuser
+#  git: repo=git://github.com/minrk/restuser.git dest=/srv/restuser accept_hostkey=yes
 
 - name: install daemon for restuser
   apt: update_cache=yes cache_valid_time=600 name=daemon state=latest

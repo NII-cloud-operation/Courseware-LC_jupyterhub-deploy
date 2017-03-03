@@ -32,11 +32,6 @@ jupyterhub_admin_user: ''
 # Root url of the hub (e.g. 'https://compmodels.tmpnb.org/')
 hub_base_url: ''
 
-# User who will run nbgrader and path to the root of the nbgrader directory
-# structure relative to that user's home directory
-nbgrader_user: ''
-nbgrader_root: ''
-
 # The name of the repository containing the homework assignments, the public URL
 # for the repository, and a private URL from which to clone the repository.
 # These two URLs can be the same, but if you have a private repo then the clone
@@ -48,10 +43,6 @@ nbgrader_root: ''
 assignments_repo_name: ''
 assignments_repo_url: ''
 assignments_repo_clone_url: ''
-
-# The password for the 'postgres' user for the nbgrader database (the database
-# name will be 'gradebook')
-gradebook_postgres_password: ''
 
 # This is the path to where the docker TLS certificates are stored -- this is
 # necessary for the SwarmSpawner to actually be able to communicate with swarm

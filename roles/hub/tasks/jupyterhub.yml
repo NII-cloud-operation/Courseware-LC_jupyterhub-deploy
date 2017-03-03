@@ -14,8 +14,10 @@
 - fail: msg="admin list is empty"
   when: jupyterhub_admins|length == 0
 
-- name: clone the dockerfile git repository
-  git: repo=https://github.com/triggers/jupyterhub.git dest=/srv/jupyterhub
+# Commenting this out because the jupyterhub repository will now be
+# preloaded into the hub VM from a local cache.
+#- name: clone the dockerfile git repository
+#  git: repo=https://github.com/triggers/jupyterhub.git dest=/srv/jupyterhub
 
 - name: create the jupyterhub_users directory
   file: path=/srv/jupyterhub_users state=directory
