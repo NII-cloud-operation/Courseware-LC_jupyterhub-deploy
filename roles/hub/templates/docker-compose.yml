@@ -19,7 +19,7 @@ jpydb:
       - /srv/postgres/jupyterhub:/var/lib/postgresql/data/jupyterhub
 
 jupyterhub:
-    image: triggers/jupyterhub
+    build: /srv/jh-image-wrap
     restart: always
     environment:
       OAUTH_CLIENT_ID: "{{ oauth_client_id }}"
