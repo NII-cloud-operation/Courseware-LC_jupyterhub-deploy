@@ -8,8 +8,10 @@ node2 ansible_ssh_user=root ansible_ssh_host=192.168.11.2 fqdn=node2 servicenet_
 [jupyterhub_nfs]
 hub
 
-[proxy]
-hub
+## Not deploying root_nginx_1 container.  It is now completely replaced by
+## root_nginx_3 which is deployed by bashscripts.  So commenting out the next two lines:
+# [proxy]
+# hub
 
 [nfs_clients]
 node1

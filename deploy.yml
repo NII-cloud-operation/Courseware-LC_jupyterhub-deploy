@@ -1,3 +1,6 @@
+# This file is not used.  It is only here for reference and has
+# been split into deploy-part1.yml and deploy-part2.yml.
+
 ---
 - hosts:
   - proxy
