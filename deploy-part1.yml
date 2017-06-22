@@ -1,6 +1,6 @@
 ---
 - hosts:
-  - proxy
+#  - proxy  # (turn off root_nginx_1, replaced by root_nginx_3)
   - jupyterhub_nfs
   - jupyterhub_host
   - jupyterhub_nodes
@@ -10,7 +10,7 @@
   - common
 
 - hosts:
-  - proxy
+#  - proxy  # (turn off root_nginx_1, replaced by root_nginx_3)
   - jupyterhub_host
   - jupyterhub_nodes
   vars_files:

@@ -1,8 +1,11 @@
-- hosts: proxy
-  vars_files:
-  - 'secrets.vault.yml'
-  roles:
-  - proxy
+## Not deploying root_nginx_1 container.  It is now completely replaced by
+## root_nginx_3 which is deployed by bashscripts.  So commenting out the next section:
+
+#- hosts: proxy
+#  vars_files:
+#  - 'secrets.vault.yml'
+#  roles:
+#  - proxy
 
 - hosts: jupyterhub_nfs
   vars_files:
