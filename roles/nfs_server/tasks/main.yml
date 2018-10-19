@@ -5,10 +5,10 @@
   when: nfsdomain == ''
 
 - name: install nfs packages
-  apt: update_cache=yes cache_valid_time=600 name=nfs-kernel-server,nfs-common state=latest
+  yum: nfs-utils state=latest
 
 - name: stop nfs
-  service: name=nfs-kernel-server state=stopped
+  service: name=nfs-server state=stopped
 
 - name: unmount existing volumes
   shell: umount {{ nfspath }}/{{ item }} || true
@@ -47,10 +47,6 @@
 - name: bind jupyter volume
   mount: src=/mnt/nfs/jupyter name={{ nfspath }}/jupyter fstype=none opts=bind state=mounted
 
-- name: modify ufw settings
-  shell: "ufw allow from {{ hostvars[item]['servicenet_ip'] }}"
-  with_items: "{{ groups['nfs_clients'] }}"
-
 - name: modify /etc/hosts.allow
   lineinfile:
     dest: /etc/hosts.allow
@@ -61,7 +57,16 @@
   template: src=exports dest=/etc/exports mode=0644
 
 - name: start nfs
-  service: name=nfs-kernel-server state=started
+  service: name=nfs-server state=started
 
 - name: restart idmapd
-  service: name=idmapd state=restarted
+  service: name=nfs-idmapd state=restarted
+
+- name: mount home nfs dir
+  lineinfile: dest=/etc/fstab line="/mnt/nfs/home /home none bind 0 0" regexp="^/mnt/nfs/home /home "
+
+- name: mount exchange nfs dir
+  lineinfile: dest=/etc/fstab line="/mnt/nfs/exchange /exchange none bind 0 0" regexp="^/mnt/nfs/exchange /exchange "
+
+- name: mount jupyter nfs dir
+  lineinfile: dest=/etc/fstab line="/mnt/nfs/jupyter /jupyter none bind 0 0" regexp="^/mnt/nfs/jupyter /jupyter "
