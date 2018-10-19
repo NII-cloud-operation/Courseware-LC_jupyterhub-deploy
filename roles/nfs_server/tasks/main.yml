@@ -51,7 +51,7 @@
   lineinfile:
     dest: /etc/hosts.allow
     line: "PORTMAP: {{ hostvars[item]['servicenet_ip'] }}"
-  with_items: "{{ groups['nfs_clients'] }}"
+  with_items: "{{ groups[nfsnodes_group] }}"
 
 - name: install /etc/exports
   template: src=exports dest=/etc/exports mode=0644
