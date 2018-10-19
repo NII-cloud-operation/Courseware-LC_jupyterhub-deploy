@@ -5,7 +5,7 @@
   when: nfsdomain == ''
 
 - name: install nfs packages
-  yum: nfs-utils state=latest
+  yum: name=nfs-utils state=latest
 
 - name: stop nfs
   service: name=nfs-server state=stopped
