@@ -57,10 +57,10 @@
   template: src=exports dest=/etc/exports mode=0644
 
 - name: start nfs
-  service: name=nfs-server state=started
+  service: name=nfs-server state=started enabled=yes
 
 - name: restart idmapd
-  service: name=nfs-idmapd state=restarted
+  service: name=nfs-idmapd state=restarted enabled=yes
 
 - name: mount home nfs dir
   lineinfile: dest=/etc/fstab line="/mnt/nfs/home /home none bind 0 0" regexp="^/mnt/nfs/home /home "
