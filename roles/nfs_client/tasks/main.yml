@@ -7,7 +7,7 @@
   when: exchange == ''
 
 - name: install nfs client
-  apt: update_cache=yes cache_valid_time=600 name=nfs-common state=present
+  yum: name=nfs-utils state=present
 
 - name: unmount home nsf dir
   shell: umount /home || true
@@ -19,10 +19,10 @@
   shell: umount /jupyter || true
 
 - name: mount home nfs dir
-  mount: name=/home src={{ hostvars[nfsserver]['servicenet_ip'] }}:/home fstype=nfs opts={{ nfsoptions }} state=mounted
+  lineinfile: dest=/etc/fstab line="{{ hostvars[nfsserver]['servicenet_ip'] }}:/home /home nfs rw,_netdev,auto 0 0" regexp="^{{ hostvars[nfsserver]['servicenet_ip'] }}:/home "
 
 - name: mount exchange nfs dir
-  mount: name={{ exchange }} src={{ hostvars[nfsserver]['servicenet_ip'] }}:/exchange fstype=nfs opts={{ nfsoptions }} state=mounted
+  mount: path={{ exchange }} src={{ hostvars[nfsserver]['servicenet_ip'] }}:/exchange fstype=nfs opts={{ nfsoptions }} state=mounted
 
 - name: mount jupyter nfs dir
-  mount: name=/jupyter src={{ hostvars[nfsserver]['servicenet_ip'] }}:/jupyter fstype=nfs opts={{ nfsoptions }} state=mounted
+  mount: path=/jupyter src={{ hostvars[nfsserver]['servicenet_ip'] }}:/jupyter fstype=nfs opts={{ nfsoptions }} state=mounted
