@@ -1,15 +1,8 @@
----
-- name: create /srv/skeldir
-  file: path=/srv/skeldir state=directory
+- name: install tools directory
+  file: path=/etc/skel/tools src=/jupyter/admin/tools state=link force=yes
 
-- name: create ~/.jupyter
-  file: path=/srv/skeldir/.jupyter state=directory
+- name: install textbook directory
+  file: path=/etc/skel/textbook src=/jupyter/admin/textbook state=link force=yes
 
-- name: install jupyter_notebook_config.json
-  copy: src=jupyter_notebook_config.json dest=/srv/skeldir/.jupyter/jupyter_notebook_config.json
-
-- name: create ~/.jupyter/nbconfig
-  file: path=/srv/skeldir/.jupyter/nbconfig state=directory
-
-- name: install nbconfig/tree.json
-  copy: src=nbconfig_tree.json dest=/srv/skeldir/.jupyter/nbconfig/tree.json
+- name: install info directory
+  file: path=/etc/skel/info src=/jupyter/admin/info state=link force=yes
