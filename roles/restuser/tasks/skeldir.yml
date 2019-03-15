@@ -1,8 +1,0 @@
-- name: install tools directory
-  file: path=/etc/skel/tools src=/jupyter/admin/tools state=link force=yes
-
-- name: install textbook directory
-  file: path=/etc/skel/textbook src=/jupyter/admin/textbook state=link force=yes
-
-- name: install info directory
-  file: path=/etc/skel/info src=/jupyter/admin/info state=link force=yes

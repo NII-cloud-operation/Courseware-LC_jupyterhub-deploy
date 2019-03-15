@@ -1,5 +1,4 @@
 ---
-- include: skeldir.yml
 - include: login-defs.yml
 
 - yum: name=epel-release
