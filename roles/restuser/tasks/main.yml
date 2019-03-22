@@ -1,31 +1,22 @@
 ---
-- include: skeldir.yml
+- include: login-defs.yml
+
+- yum: name=epel-release
+
+- name: python
+  yum: name=python,python-pip,git state=latest
 
 - name: tornado
-  pip: name=tornado state=latest
+  pip: name=tornado<6 state=latest
 
-# Commenting this out because the restuser repository will now be
-# preloaded into the hub VM from a local cache.
-#- name: install restuser
-#  git: repo=git://github.com/minrk/restuser.git dest=/srv/restuser accept_hostkey=yes
+- name: install restuser
+  git: repo=https://github.com/minrk/restuser.git dest=/srv/restuser
 
-- name: install daemon for restuser
-  apt: update_cache=yes cache_valid_time=600 name=daemon state=latest
-
-- name: stop restuser
-  shell: "daemon -n restuser --running && daemon -n restuser --stop || echo ok"
-
-- name: wait for restuser to exit
-  wait_for: "path=/run/restuser.pid state=absent"
-
-- name: ensure that daemon says restuser is not running
-  shell: "[ ! $(daemon -n restuser --running) ]"
+- copy: src=restuser.service dest=/etc/systemd/system/restuser.service
+- command: systemctl daemon-reload
 
 - name: start restuser
-  command: daemon -n restuser -o /var/log/restuser.log -- python /srv/restuser/restuser.py --skeldir=/srv/skeldir
-
-- name: ensure restuser is running
-  shell: daemon -n restuser --running
+  service: name=restuser state=restarted enabled=yes
 
 - name: wait for restuser socket to exist
   wait_for: "path=/var/run/restuser.sock"
