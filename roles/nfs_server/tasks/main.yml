@@ -14,9 +14,6 @@
 - name: create root directory for NFS volume
   file: path={{ nfspath }} state=directory
 
-- name: create sub directory for home volume
-  file: path={{ nfspath }}/home state=directory
-
 - name: create sub directory for exchange volume
   file: path={{ nfspath }}/exchange state=directory mode=0777
 
