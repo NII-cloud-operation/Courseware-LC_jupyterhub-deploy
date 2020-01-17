@@ -6,10 +6,10 @@
 
 - name: install nfs packages
   yum: name=nfs-utils state=latest
-
-- name: stop nfs
-  service: name=nfs-server state=stopped
-
+- name: start nfs
+  service: name=nfs-server state=started enabled=yes
+- name: start idmapd
+  service: name=nfs-idmapd state=started enabled=yes
 
 - name: create root directory for NFS volume
   file: path={{ nfspath }} state=directory
@@ -32,11 +32,6 @@
 - name: install /etc/exports
   template: src=exports dest=/etc/exports mode=0644
 
-- name: start nfs
-  service: name=nfs-server state=started enabled=yes
-
-- name: restart idmapd
-  service: name=nfs-idmapd state=restarted enabled=yes
-
-
+- name: reexport all NFS volume directories
+  shell: exportfs -ra
 
