@@ -29,8 +29,11 @@
     line: "PORTMAP: {{ hostvars[item]['servicenet_ip'] }}"
   with_items: "{{ groups[nfsnodes_group] }}"
 
-- name: install /etc/exports
-  template: src=exports dest=/etc/exports mode=0644
+- name: create /etc/exports.d
+  file: path=/etc/exports.d state=directory
+
+- name: install /etc/exports.d
+  template: src=exports dest=/etc/exports.d/{{ nfspath | dirname }}.exports mode=0644
 
 - name: reexport all NFS volume directories
   shell: exportfs -ra
