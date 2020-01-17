@@ -10,21 +10,6 @@
 - name: stop nfs
   service: name=nfs-server state=stopped
 
-- name: unmount existing volumes
-  shell: umount {{ nfspath }}/{{ item }} || true
-  with_items:
-    - home
-    - exchange
-    - jupyter
-
-- name: make sure home directory exists
-  file: path=/mnt/nfs/home state=directory
-
-- name: make sure exchange directory exists
-  file: path=/mnt/nfs/exchange state=directory mode=0777
-
-- name: make sure jupyter directory exists
-  file: path=/mnt/nfs/jupyter state=directory mode=0777
 
 - name: create root directory for NFS volume
   file: path={{ nfspath }} state=directory
@@ -37,15 +22,6 @@
 
 - name: create sub directory for jupyter volume
   file: path={{ nfspath }}/jupyter state=directory mode=0777
-
-- name: bind home volume
-  mount: src=/mnt/nfs/home name={{ nfspath }}/home fstype=none opts=bind state=mounted
-
-- name: bind exchange volume
-  mount: src=/mnt/nfs/exchange name={{ nfspath }}/exchange fstype=none opts=bind state=mounted
-
-- name: bind jupyter volume
-  mount: src=/mnt/nfs/jupyter name={{ nfspath }}/jupyter fstype=none opts=bind state=mounted
 
 - name: modify /etc/hosts.allow
   lineinfile:
@@ -62,11 +38,5 @@
 - name: restart idmapd
   service: name=nfs-idmapd state=restarted enabled=yes
 
-- name: mount home nfs dir
-  lineinfile: dest=/etc/fstab line="/mnt/nfs/home /home none bind 0 0" regexp="^/mnt/nfs/home /home "
 
-- name: mount exchange nfs dir
-  lineinfile: dest=/etc/fstab line="/mnt/nfs/exchange /exchange none bind 0 0" regexp="^/mnt/nfs/exchange /exchange "
 
-- name: mount jupyter nfs dir
-  lineinfile: dest=/etc/fstab line="/mnt/nfs/jupyter /jupyter none bind 0 0" regexp="^/mnt/nfs/jupyter /jupyter "
