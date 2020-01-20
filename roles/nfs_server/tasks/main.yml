@@ -30,7 +30,7 @@
   file: path=/etc/exports.d state=directory
 
 - name: install /etc/exports.d
-  template: src=exports dest=/etc/exports.d/{{ nfspath | dirname }}.exports mode=0644
+  template: src=exports dest=/etc/exports.d/{{ nfspath | basename }}.exports mode=0644
 
 - name: reexport all NFS volume directories
   shell: exportfs -ra
