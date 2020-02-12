@@ -1,0 +1,5 @@
+{% for host in groups[nfsnodes_group] %}
+{{ nfspath }}      {{ hostvars[host]['servicenet_ip'] }}(rw,fsid=0,no_root_squash,no_subtree_check,sync)
+{{ nfspath }}/exchange {{ hostvars[host]['servicenet_ip'] }}(rw,no_root_squash,no_subtree_check,sync)
+{{ nfspath }}/jupyter {{ hostvars[host]['servicenet_ip'] }}(rw,no_root_squash,no_subtree_check,sync)
+{% endfor %}

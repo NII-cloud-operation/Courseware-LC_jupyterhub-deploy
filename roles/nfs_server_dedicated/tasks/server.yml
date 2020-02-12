@@ -1,0 +1,32 @@
+---
+- name: install nfs packages
+  yum: name=nfs-utils state=latest
+- name: start nfs
+  service: name=nfs-server state=started enabled=yes
+- name: start idmapd
+  service: name=nfs-idmapd state=started enabled=yes
+
+- name: create root directory for NFS volume
+  file: path={{ nfspath }} state=directory
+
+- name: create sub directory for exchange volume
+  file: path={{ nfspath }}/exchange state=directory mode=0777
+
+- name: create sub directory for jupyter volume
+  file: path={{ nfspath }}/jupyter state=directory mode=0777
+
+- name: modify /etc/hosts.allow
+  lineinfile:
+    dest: /etc/hosts.allow
+    line: "PORTMAP: {{ hostvars[item]['servicenet_ip'] }}"
+  with_items: "{{ groups[nfsnodes_group] }}"
+
+- name: create /etc/exports.d
+  file: path=/etc/exports.d state=directory
+
+- name: install /etc/exports.d
+  template: src=exports dest=/etc/exports.d/{{ nfspath | basename }}.exports mode=0644
+
+- name: reexport all NFS volume directories
+  shell: exportfs -ra
+
