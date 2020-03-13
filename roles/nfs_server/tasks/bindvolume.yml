@@ -1,29 +1,7 @@
 ---
-- fail: msg="nfspath is not defined"
-  when: nfspath == ''
-- fail: msg="nfsdomain is not defined"
-  when: nfsdomain == ''
+- name: bind exchange nfs dir
+  mount: src={{ nfspath }}/exchange name=/exchange fstype=none opts=bind state=mounted
 
-- name: unmount existing volumes
-  shell: umount {{ nfspath }}/{{ item }} || true
-  with_items:
-    - exchange
-    - jupyter
+- name: bind jupyter nfs dir
+  mount: src={{ nfspath }}/jupyter name=/jupyter fstype=none opts=bind state=mounted
 
-- name: make sure exchange directory exists
-  file: path=/mnt/nfs/exchange state=directory mode=0777
-
-- name: make sure jupyter directory exists
-  file: path=/mnt/nfs/jupyter state=directory mode=0777
-
-- name: bind exchange volume
-  mount: src=/mnt/nfs/exchange name={{ nfspath }}/exchange fstype=none opts=bind state=mounted
-
-- name: bind jupyter volume
-  mount: src=/mnt/nfs/jupyter name={{ nfspath }}/jupyter fstype=none opts=bind state=mounted
-
-- name: mount exchange nfs dir
-  lineinfile: dest=/etc/fstab line="/mnt/nfs/exchange /exchange none bind 0 0" regexp="^/mnt/nfs/exchange /exchange "
-
-- name: mount jupyter nfs dir
-  lineinfile: dest=/etc/fstab line="/mnt/nfs/jupyter /jupyter none bind 0 0" regexp="^/mnt/nfs/jupyter /jupyter "
