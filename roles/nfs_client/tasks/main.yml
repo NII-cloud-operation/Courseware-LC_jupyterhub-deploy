@@ -9,17 +9,11 @@
 - name: install nfs client
   yum: name=nfs-utils state=present
 
-- name: unmount home nsf dir
-  shell: umount /home || true
-
 - name: unmount exchange nsf dir
   shell: umount {{ exchange }} || true
 
 - name: unmount jupyter nsf dir
   shell: umount /jupyter || true
-
-- name: mount home nfs dir
-  lineinfile: dest=/etc/fstab line="{{ hostvars[nfsserver]['servicenet_ip'] }}:/home /home nfs rw,_netdev,auto 0 0" regexp="^{{ hostvars[nfsserver]['servicenet_ip'] }}:/home "
 
 - name: mount exchange nfs dir
   mount: path={{ exchange }} src={{ hostvars[nfsserver]['servicenet_ip'] }}:/exchange fstype=nfs opts={{ nfsoptions }} state=mounted

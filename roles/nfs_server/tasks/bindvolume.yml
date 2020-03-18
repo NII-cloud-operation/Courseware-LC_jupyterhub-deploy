@@ -1,0 +1,7 @@
+---
+- name: bind exchange nfs dir
+  mount: src={{ nfspath }}/exchange name=/exchange fstype=none opts=bind state=mounted
+
+- name: bind jupyter nfs dir
+  mount: src={{ nfspath }}/jupyter name=/jupyter fstype=none opts=bind state=mounted
+
